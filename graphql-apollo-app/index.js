@@ -57,7 +57,39 @@ const resolvers = {
     author(parent){
       return db.authors.find((author) => author.id === parent.author_id);
     }
-  }
+  },
+
+
+  
+  Mutation: {
+  // QUARY FOR MUTAION
+  // mutation deleteMutation($id:ID!) {
+  //   deleteGame(id: $id) {
+  //     id
+  //   }
+  // }
+    deleteGame(_, args) {
+      db.games = db.games.filter((game)=> game.id !=args.id);
+      return db.games;
+    },
+
+    // mutation addMutation($game: addGameInput!) {
+    //   addGame(game: $game) {
+    //     title,
+    //     id
+    //   }
+    // }
+    addGame(_,args){
+      let game = {
+        ...args.game,
+        id: Math.floor(Math.random()*1000)
+      }
+
+      db.games.push(game);
+      return game;
+    }
+
+  },
   
   
 }
